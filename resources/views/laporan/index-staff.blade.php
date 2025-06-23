@@ -1,4 +1,6 @@
-
+@php
+    $routelaporan = route('staff.laporan.index');
+@endphp
 <x-app-layout>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg container">
         <div class="relative p-3 ">
@@ -24,7 +26,20 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-
+        <form action="{{ route('staff.laporan.index') }}" method="GET" class="flex items-center gap-4 mb-4 px-3">
+            <div>
+                <label for="tanggal" class="text-sm text-gray-700">Filter Tanggal:</label>
+                <input type="date" name="tanggal" id="tanggal"
+                    value="{{ request('tanggal') }}"
+                    class="border rounded px-2 py-1 text-sm">
+                <x-primary-button type="submit" class="ml-2">
+                    Filter
+                </x-primary-button>
+                <x-primary-button type="button" onclick="window.location='{{ $routelaporan }}'" class="ml-2">
+                    Reset
+                </x-primary-button>
+            </div>
+        </form>
         @if ($laporan->isEmpty())
             <div class="text-black p-3 rounded mb-3 text-center">
                 Data laporan belum tersedia!

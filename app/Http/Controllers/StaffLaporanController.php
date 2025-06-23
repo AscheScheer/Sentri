@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Laporan;
@@ -13,12 +14,15 @@ class StaffLaporanController extends Controller
     /**
      * Tampilkan daftar laporan setoran untuk staff.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Misal staff bisa melihat semua laporan, atau filter sesuai kebutuhan
-        $laporan = Laporan::with(['user', 'suratRelasi'])
-                    ->latest()
-                    ->paginate(10);
+        $query = Laporan::with(['user', 'suratRelasi'])->latest();
+
+        if ($request->filled('tanggal')) {
+            $query->whereDate('tanggal', $request->tanggal);
+        }
+
+        $laporan = $query->paginate(10);
 
         return view('laporan.index-staff', compact('laporan'));
     }
@@ -30,7 +34,11 @@ class StaffLaporanController extends Controller
     {
         $users = User::all();
         $surat = Surat::all();
-        return view('laporan.create-staff', compact('users', 'surat'));
+        $latestLaporan = \App\Models\Laporan::with(['user', 'suratRelasi'])
+            ->latest()
+            ->take(10)
+            ->get();
+        return view('laporan.create-staff', compact('users', 'surat', 'latestLaporan'));
     }
 
     /**

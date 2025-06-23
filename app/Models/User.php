@@ -51,3 +51,5 @@ class User extends Authenticatable
     return $this->hasMany(Laporan::class);
 }
 }
+
+// \App\Models\User::factory()->create();

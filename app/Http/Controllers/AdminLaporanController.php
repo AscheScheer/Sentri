@@ -12,11 +12,15 @@ class AdminLaporanController extends Controller
     /**
      * Tampilkan daftar laporan setoran untuk admin.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $laporan = Laporan::with(['user', 'suratRelasi'])
-                    ->latest()
-                    ->paginate(10);
+        $query = Laporan::with(['user', 'suratRelasi'])->latest();
+
+        if ($request->filled('tanggal')) {
+            $query->whereDate('tanggal', $request->tanggal);
+        }
+
+        $laporan = $query->paginate(10);
 
         return view('laporan.index-admin', compact('laporan'));
     }

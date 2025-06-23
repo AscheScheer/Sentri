@@ -21,3 +21,5 @@ class Surat extends Model
         return $this->hasMany(Laporan::class, 'surat');
     }
 }
+
+// \App\Models\Surat::factory()->create();

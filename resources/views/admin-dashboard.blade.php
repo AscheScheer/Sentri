@@ -5,13 +5,29 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in as Admin!") }}
-                </div>
+<div class="container my-5">
+    <div class="border border-dark rounded p-5 bg-white text-center">
+        <h2 class="fw-bold text-dark text-decoration-underline mb-4">Welcome Admin!</h2>
+
+        <div class="row justify-content-center">
+            <!-- Jumlah User -->
+            <div class="col-md-3 mx-2 my-2 border border-dark rounded py-4">
+                <div class="display-4 fw-bold text-dark">{{ $jumlahUser }}</div>
+                <div class="text-muted">Jumlah User</div>
+            </div>
+
+            <!-- Jumlah Staff -->
+            <div class="col-md-3 mx-2 my-2 border border-dark rounded py-4">
+                <div class="display-4 fw-bold text-dark">{{ $jumlahStaff }}</div>
+                <div class="text-muted">Jumlah Staff</div>
+            </div>
+
+            <!-- Jumlah Admin -->
+            <div class="col-md-3 mx-2 my-2 border border-dark rounded py-4">
+                <div class="display-4 fw-bold text-dark">{{ $jumlahAdmin }}</div>
+                <div class="text-muted">Jumlah Admin</div>
             </div>
         </div>
     </div>
+</div>
 </x-app-layout>

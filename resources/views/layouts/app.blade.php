@@ -17,16 +17,35 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <style>
+        :root {
+            --bs-primary: #4ade80 !important;
+            /* Tailwind green-400 */
+        }
+
+        .btn-primary {
+            background-color: #379146 !important;
+            border-color: #000 !important;
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background-color: #4ade80 !important;
+            /* Lighten on hover (Tailwind green-400) */
+            border-color: #000 !important;
+        }
+    </style>
 </head>
 
 <body class="font-sans antialiased">
 
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen bg-green-50"> <!-- Changed from bg-gray-100 to bg-green-50 -->
         @include('layouts.navigation')
 
         <!-- Page Heading -->
         @isset($header)
-        <header class="bg-white shadow">
+        <header class="bg-green-100 shadow"> <!-- Changed from bg-white to bg-green-100 -->
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 {{ $header }}
             </div>

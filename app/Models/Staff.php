@@ -23,3 +23,5 @@ use HasFactory, Notifiable;
         'remember_token',
     ];
 }
+
+// \App\Models\Staff::factory()->create();

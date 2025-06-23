@@ -10,6 +10,8 @@ use App\Http\Controllers\StaffLaporanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StaffDashboardController;
+use App\Http\Controllers\AdminDashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -45,6 +47,7 @@ Route::middleware('auth:staff')->group(function () {
     Route::get('/staff/laporan/{laporan}/edit', [StaffLaporanController::class, 'edit'])->name('staff.laporan.edit');
     Route::put('/staff/laporan/{laporan}', [StaffLaporanController::class, 'update'])->name('staff.laporan.update');
     Route::delete('/staff/laporan/{laporan}', [StaffLaporanController::class, 'destroy'])->name('staff.laporan.destroy');
+    Route::get('/staff/dashboard', [StaffDashboardController::class, 'index'])->name('staff.dashboard');
 });
 // Admin login routes
 Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
@@ -70,6 +73,7 @@ Route::middleware('auth:admin')->group(function () {
         Route::resource('staff', StaffController::class);
         Route::resource('admin', AdminController::class);
     });
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });
 
 

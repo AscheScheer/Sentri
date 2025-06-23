@@ -17,8 +17,18 @@ class LaporanFactory extends Factory
             'user_id' => User::inRandomOrder()->first()?->id ?? User::factory(),
             'surat_id' => Surat::inRandomOrder()->first()?->id ?? Surat::factory(),
             'ayat_halaman' => $this->faker->bothify('Ayat ##, Halaman ##'),
-            'tanggal' => $this->faker->date(),
+            'tanggal' => $this->faker->dateTimeBetween('-2 months', 'now')->format('Y-m-d'),
             'keterangan' => $this->faker->optional()->sentence(),
         ];
     }
 }
+
+/*
+    To create Laporan model records using this factory in Laravel Tinker, use:
+
+    Laporan::factory()->count(5)->create();
+
+    or for a single record:
+
+    Laporan::factory()->create();
+*/

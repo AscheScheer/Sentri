@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Laporan;
@@ -13,14 +14,20 @@ class LaporanController extends Controller
     /**
      * Tampilkan daftar laporan setoran.
      */
-    public function index()
+    public function index(Request $request)
     {
-    $laporan = Laporan::with(['user', 'suratRelasi'])
-                ->where('user_id', Auth::id())
-                ->latest()
-                ->paginate(10);
+        $query = Laporan::with(['user', 'suratRelasi'])
+            ->where('user_id', Auth::id()) // hanya laporan milik user login
+            ->latest();
 
-    return view('laporan.index', compact('laporan'));
+        // Jika ada filter tanggal dari request
+        if ($request->filled('tanggal')) {
+            $query->whereDate('tanggal', $request->tanggal);
+        }
+
+        $laporan = $query->paginate(10);
+
+        return view('laporan.index', compact('laporan'));
     }
 
     /**

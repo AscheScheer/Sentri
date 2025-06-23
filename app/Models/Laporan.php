@@ -30,3 +30,5 @@ class Laporan extends Model
         return $this->belongsTo(Surat::class, 'surat_id');
     }
 }
+
+// \App\Models\Laporan::factory()->create();
