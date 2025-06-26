@@ -1,5 +1,5 @@
 @php
-    $routelaporan = route('laporan.index');
+$routelaporan = route('laporan.index');
 @endphp
 <x-app-layout>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg container">
@@ -40,7 +40,7 @@
             Data laporan belum tersedia!
         </div>
         @else
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 container">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 container" >
             <thead class="text-sm text-gray-700 uppercase bg-white dark:bg-gray-800">
                 <tr class="border-t border-b dark:border-gray-700">
                     <th class="px-6 py-3 text-center">No</th>
@@ -76,6 +76,16 @@
                 @endforeach
             </tbody>
         </table>
+        <div style="background-color:#cad7ed; padding: 2px; margin-bottom: 20px; border-radius: 0 0 10px 10px; text-align: center;">
+        <form action="{{ route('export.pdf') }}" method="get" target="_blank" class="flex items-center gap-4 mt-4 mb-4 px-3">
+            <input type="date" name="start_date" class="border rounded px-2 py-1 text-sm" required> <p>Sampai</p>
+            <input type="date" name="end_date" class="border rounded px-2 py-1 text-sm" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" required>
+            <x-primary-button type="submit">
+                Export ke PDF
+            </x-primary-button>
+        </form>
+        </div>
+
         @endif
     </div>
 </x-app-layout>

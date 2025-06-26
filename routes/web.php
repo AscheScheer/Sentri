@@ -12,6 +12,10 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StaffDashboardController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\ExportController;
+use App\Http\Controllers\StaffExportController;
+use App\Http\Controllers\AdminExportController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('laporan', LaporanController::class);
+    Route::get('/export-pdf', [ExportController::class, 'exportPdf'])->name('export.pdf');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 // Staff login routes
@@ -48,6 +54,7 @@ Route::middleware('auth:staff')->group(function () {
     Route::put('/staff/laporan/{laporan}', [StaffLaporanController::class, 'update'])->name('staff.laporan.update');
     Route::delete('/staff/laporan/{laporan}', [StaffLaporanController::class, 'destroy'])->name('staff.laporan.destroy');
     Route::get('/staff/dashboard', [StaffDashboardController::class, 'index'])->name('staff.dashboard');
+    Route::get('/staffexport-pdf', [StaffExportController::class, 'exportPdf'])->name('staff.export.pdf');
 });
 // Admin login routes
 Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
@@ -74,6 +81,7 @@ Route::middleware('auth:admin')->group(function () {
         Route::resource('admin', AdminController::class);
     });
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/export-pdf', [AdminExportController::class, 'exportPdf'])->name('admin.export.pdf');
 });
 
 
