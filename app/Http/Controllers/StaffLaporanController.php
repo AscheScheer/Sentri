@@ -8,6 +8,7 @@ use App\Models\Laporan;
 use App\Models\Surat;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Events\LaporanUpdated;
 
 class StaffLaporanController extends Controller
 {
@@ -54,14 +55,14 @@ class StaffLaporanController extends Controller
             'keterangan' => 'nullable|string',
         ]);
 
-        Laporan::create([
+        $laporan = Laporan::create([
             'user_id' => $request->user_id,
             'surat_id' => $request->surat_id,
             'ayat_halaman' => $request->ayat_halaman,
             'tanggal' => $request->tanggal,
             'keterangan' => $request->keterangan,
         ]);
-
+        event(new LaporanUpdated($laporan));
         return redirect()->route('staff.laporan.index')->with('success', 'Laporan berhasil ditambahkan.');
     }
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Laporan;
 use App\Models\User;
 use App\Models\Surat;
+use App\Events\LaporanUpdated;
 
 class AdminLaporanController extends Controller
 {
@@ -32,7 +33,11 @@ class AdminLaporanController extends Controller
     {
         $users = User::all();
         $surat = Surat::all();
-        return view('laporan.create-admin', compact('users', 'surat'));
+        $latestLaporan = \App\Models\Laporan::with(['user', 'suratRelasi'])
+            ->latest()
+            ->take(10)
+            ->get();
+        return view('laporan.create-admin', compact('users', 'surat', 'latestLaporan'));
     }
 
     /**
@@ -48,14 +53,14 @@ class AdminLaporanController extends Controller
             'keterangan' => 'nullable|string',
         ]);
 
-        Laporan::create([
+        $laporan = Laporan::create([
             'user_id' => $request->user_id,
             'surat_id' => $request->surat_id,
             'ayat_halaman' => $request->ayat_halaman,
             'tanggal' => $request->tanggal,
             'keterangan' => $request->keterangan,
         ]);
-
+        event(new LaporanUpdated($laporan));
         return redirect()->route('admin.laporan.index')->with('success', 'Laporan berhasil ditambahkan.');
     }
 

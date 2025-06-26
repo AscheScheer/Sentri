@@ -50,6 +50,7 @@
                         {{ __('Data Admin') }}
                     </x-nav-link>
                     @endif
+
                 </div>
 
 

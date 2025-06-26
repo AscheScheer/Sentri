@@ -91,7 +91,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="text-center px-3 py-4 text-gray-500">Belum ada laporan.</td>
+                            <td colspan="5" class="text-center px-3 py-4 text-gray-500">Belum ada laporan.</td>
                         </tr>
                     @endforelse
                 </tbody>
